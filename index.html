@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MealNest | Home</title>
+    <!-- Our CSS -->
+    <link rel="stylesheet" href="./Stylesheets/style.css">
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="./Stylesheets/output.css">
+    <link rel="stylesheet" href="./Stylesheets/tailwind.css">
+</head>
+
+<body>
+    <!-- Navbar Start -->
+    <nav class="flex flex-wrap items-center justify-between p-3 background-color">
+        <a href="./index.html">
+            <h1 class="font-bold lg:text-3xl primary text-2xl">MealNest</h1>
+        </a>
+        <div class="flex md:hidden">
+            <button id="hamburger">
+                <img class="toggle" src="https://img.icons8.com/fluent-systems-regular/2x/menu-squared-2.png" width="48"
+                    height="48" />
+                <img class="toggle hidden" src="https://img.icons8.com/fluent-systems-regular/2x/close-window.png"
+                    width="48" height="48" />
+            </button>
+        </div>
+        <div class="toggle hidden w-full md:w-auto md:flex text-right text-bold mt-5 md:mt-0 ">
+            <a href="./index.html" class="block md:inline-block primary hover:text-accent font-semibold px-3 py-3">Home
+            </a>
+            <a href="#" class="block md:inline-block primary hover:text-accent font-semibold px-3 py-3">Favourites
+            </a>
+            <a href="#" class="block md:inline-block primary hover:text-accent font-semibold px-3 py-3">Grocery
+            </a>
+
+        </div>
+        <div class="toggle  hidden  md:flex w-full md:w-auto px-4 py-2 text-right gap-2">
+            <div>
+                <input type="text" id="recipieInput"
+                    class="peer h-10 w-72 rounded-lg text-accent ring-2 px-2 focus:outline-none"
+                    placeholder="Find by ingredients e.g, tomato, pasta" />
+            </div>
+            <div class="pt-3 lg:pt-0">
+                <button id="recipieBtn"
+                    class="toggle hidden md:flex  md:w-auto px-4 py-2 text-right bg-teal-500 hover:accent text-white md:rounded">
+                    Find Recipies
+                </button>
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar End -->
+
+    <!-- Hero Section Start -->
+    <section class="relative  text-white overflow-hidden  ">
+        <div class="absolute inset-0 bg-black opacity-50"></div>
+        <div class="absolute inset-0 bg-cover bg-center "
+            style="background-image: url('./Images/header.png'); filter: brightness(0.4);">
+        </div>
+
+        <div class="container mx-auto lg:px-12 px-5 py-24 md:py-32 relative z-10 lg:h-[90vh]">
+            <div class="flex flex-col md:flex-row items-center justify-around">
+                <div class="w-full md:w-1/2 mb-12 md:mb-0 relative">
+                    <h1 class="text-5xl md:text-8xl font-bold mb-6 leading-tight ">
+                        Meal
+                        <br />
+                        <span
+                            class="bg-gradient-to-r from-blue-700 via-green-400 to-indigo-400 inline-block text-transparent bg-clip-text">
+                            Nest
+                        </span>
+                    </h1>
+
+                    <p class="text-xl mb-5 text-gray-300 ">
+                        Plan Smart. Cook Easy. Shop Smarter.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="absolute bottom-0 left-0 right-0">
+            <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M0 120L60 105C120 90 240 60 360 45C480 30 600 30 720 37.5C840 45 960 60 1080 67.5C1200 75 1320 75 1380 75L1440 75V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z"
+                    fill="white" />
+            </svg>
+        </div>
+    </section>
+    <!-- Hero Section End -->
+    
+    <!-- Recipie Cards Start -->
+     <div id="recipieCard"></div>
+    <!-- Recipie Cards End -->
+
+
+
+
+
+
+    <!-- Our JS -->
+    <script src="app.js"></script>
+</body>
+
+</html>

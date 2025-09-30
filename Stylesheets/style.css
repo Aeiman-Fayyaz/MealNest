@@ -1,0 +1,39 @@
+*{
+    box-sizing: border-box;
+}
+:root{
+    --primary-color : #34D399; /* Fresh Green */
+    --background-color :  #F3F4F6; /* Light Gray */  
+    --text-color : #1F2937; /* Dark Slate */
+    --accent-color :  #F87171; /* Tomato Red */ 
+}
+
+/* Primary for main */
+.primary{
+    color: var(--primary-color);
+}
+
+.background-color{
+    background: var(--background-color);
+}
+
+.text-color{
+    color: #1F2937;
+}
+
+/* Accent for highligting like buttons */
+.accent{
+    background-color: var(--accent-color);
+    color: var(--text-color);
+}
+.hover\:accent:hover{
+    background-color: var(--accent-color);
+    color: var(--text-color);
+}
+.text-accent{
+    color: var(--accent-color);
+}
+
+.hover\:text-accent:hover{
+    color: var(--accent-color);
+}
