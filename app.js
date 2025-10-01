@@ -14,9 +14,34 @@ const recipieCard = document.getElementById("recipieCard");
 // API Key
 const apiKey = "ab8a40fe315f48509cf82c763471a258";
 
+function saveLastRecipes(recipes) {
+  try {
+    localStorage.setItem("lastSearchedRecipes", JSON.stringify(recipes));
+  } catch (error) {
+    console.error("Error saving to local storage:", error);
+  }
+}
+
+/**
+ * Retrieves the last saved recipes from local storage.
+ * @returns {Array | null} - The array of recipe objects or null if not found.
+ */
+function loadLastRecipes() {
+  try {
+    const savedRecipes = localStorage.getItem("lastSearchedRecipes");
+    return savedRecipes ? JSON.parse(savedRecipes) : null;
+  } catch (error) {
+    console.error("Error loading from local storage:", error);
+    return null;
+  }
+}
+
 // Create function and fetching data
 async function fetchRecipies(ingredients) {
   try {
+    // Show a loading state
+    recipieCard.innerHTML = `<p class="col-span-full text-center py-10 text-lg text-gray-500"><i class="fas fa-spinner fa-spin mr-2"></i>Fetching recipes...</p>`;
+
     // Create var and save fetching response
     const response = await fetch(
       `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${ingredients}&number=10&apiKey=${apiKey}`
@@ -24,6 +49,9 @@ async function fetchRecipies(ingredients) {
     console.log(response);
     // Convert response into JSON and save into new var
     const recipies = await response.json();
+    // Local Storage function
+    saveLastRecipes(recipies)
+    // Display function
     displayRecipieCard(recipies);
     console.log(recipies);
   } catch (error) {
@@ -71,7 +99,7 @@ function displayRecipieCard(recipiesToDisplay) {
     <div class="relative">
     <img src="${recipie.image}" alt="${
       recipie.title
-    }" class="w-full  object-cover">
+    }" class="w-full h-48 object-cover">
     <button class="favourite-btn absolute top-3 right-3 bg-white p-2 rounded-full shadow-md ${
       isFavourite ? "active" : ""
     }" data-id="${recipie.id}"><i
@@ -109,6 +137,19 @@ function displayRecipieCard(recipiesToDisplay) {
     `;
     recipieCard.appendChild(recipieCardElement);
   });
+
+
+  // FUnction initialize Recipie display
+  function initializeRecipieDisplay() {
+    const lastRecipies = loadLastRecipes()
+    if(lastRecipies && lastRecipies.length > 0){
+      displayRecipieCard()
+    }else{
+      const defaultIngredients = "Chicken , Tomato"
+      fetchRecipies(defaultIngredients)
+    }
+  }
+  document.addEventListener("DOMContentLoaded" , initializeRecipieDisplay)
   // Favourite button add EventListener
   document.querySelectorAll(".favourite-btn").forEach((btn) => {
     btn.addEventListener("click", toggleFavourite);
