@@ -97,7 +97,7 @@ function displayRecipieCard(recipiesToDisplay) {
                 <img src="${recipie.image}" alt="${
       recipie.title
     }" class="w-full h-48 object-cover">
-                <button class="favourite-btn absolute top-3 right-3 bg-white p-2 rounded-full shadow-md ${
+                <button onclick="toggleFavourite(event)" class="favourite-btn absolute top-3 right-3 bg-white p-2 rounded-full shadow-md ${
                   isFavourite ? "active" : ""
                 }" data-id="${recipie.id}"><i class="fas fa-heart ${
       isFavourite ? "text-red-500" : "text-gray-400"
@@ -147,31 +147,81 @@ function initializeRecipieDisplay() {
 document.addEventListener("DOMContentLoaded", initializeRecipieDisplay);
 //   // Favourite button add EventListener
 document.querySelectorAll(".favourite-btn").forEach((btn) => {
-  btn.addEventListener("click", toggleFavourite);
+  btn.addEventListener("click", toggleFavourite());
 });
-//   // For VIew Recipie Button
+//   // For View Recipie Button
 document.querySelectorAll(".view-recipie-btn").forEach((btn, index) => {
   btn.addEventListener("click", () => viewRecipie(recipiesToDisplay[index]));
 });
-function toggleFavourite() {
-  const recipieId = parseInt(e.currentTarget.getAttribute("data-id"));
-  const heartIcon = e.currentTarget.querySelector("i");
+// Function for save to favourite
+function toggleFavourite(event) {
+  const recipieId = parseInt(event.currentTarget.getAttribute("data-id"));
+  const heartIcon = event.currentTarget.querySelector("i");
   let favourites = JSON.parse(localStorage.getItem("favourites")) || [];
   if (favourites.includes(recipieId)) {
-    //     // Remove from favourites if again click on heart icon
+    // Remove from favourites if again click on heart icon
     favourites = favourites.filter((id) => id !== recipieId);
     heartIcon.classList.remove("text-red-500");
     heartIcon.classList.add("text-gray-400");
-    e.currentTarget.classList.remove("active");
+    event.currentTarget.classList.remove("active");
     console.log(`Removed ${recipieId} from fav`);
   } else {
-    //     // Add to Favourite
+    // Add to Favourite
     favourites.push(recipieId);
     heartIcon.classList.remove("text-gray-400");
     heartIcon.classList.add("text-red-500");
-    e.currentTarget.classList.add("active");
+    event.currentTarget.classList.add("active");
     console.log(`Add ${recipieId} from fav`);
   }
-  //   // Save to local Storage
+  // Save to local Storage
   localStorage.setItem("favourites", JSON.stringify(favourites));
 }
+
+// Function for displaying favourite recipies
+function displayFavouriteRecipies() {
+  // Getting Id of favourite
+  const fullRecipieData =
+    JSON.parse(localStorage.getItem("favourites")) || [];
+  // Create new div for save recipies
+  const container = document.createElement("div");
+  container.className =
+    "container mx-auto p-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8";
+  // Getting div from HTML
+  const recipeResultsFav = document.getElementById("recipeResultsFav");
+  // Condition
+  if (!fullRecipieData.length === 0) {
+    recipeResultsFav.innerHTML =
+      '<p class="text-center text-xl text-gray-500 py-10">You have no favourite recipes yet. Go to Home to add some!</p>';
+    return;
+  }
+  // Fetching data
+   fullRecipieData.forEach((recipieId) => {
+    const encodedIngredients = encodeURIComponent();
+    `${baseUrl}?type=public&q=${encodedIngredients}&app_id=${appId}&app_key=${appKey}`;
+    // Fetching required data
+    const title = fullRecipieData.label;
+    const image = fullRecipieData.image;
+    const ingredients = fullRecipieData.ingredientLines;
+    const favRecipieCard = document.createElement("div");
+    favRecipieCard.className = "bg-white p-4 shadow-lg rounded-lg relative";
+    favRecipieCard.innerHTML = `
+    <div class = "h-20 w-20">
+    <img src = "${image}" alt = "${title}">
+    </div>
+    <div class="p-4">
+    <h2 class="text-xl font-bold mb-2">${title}</h2>
+    <p class="text-gray-600 mb-4">
+      <strong>Ingredients:</strong><br>${ingredients}
+    </p>
+    <a href="${fullRecipieData.url}" target="_blank" class="text-teal-500 hover:text-teal-700 font-semibold">View Full Recipe</a>
+    </div>
+    <button onclick="toggleFavourite(event)" data-id="${recipieId}" class="favourite-btn absolute top-3 right-3 bg-white p-2 rounded-full shadow-md active">
+                    <i class="fas fa-heart text-red-500"></i>
+                </button>
+    `;
+    container.appendChild(favRecipieCard);
+  });
+  recipeResultsFav.innerHTML = "";
+  recipeResultsFav.appendChild(container);
+}
+document.addEventListener("DOMContentLoaded", displayFavouriteRecipies);
