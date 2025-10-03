@@ -93,42 +93,47 @@ function displayRecipieCard(recipiesToDisplay) {
     const recipieCardElement = document.createElement("div");
     recipieCardElement.className = `bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 flex flex-col`;
     recipieCardElement.innerHTML = `
-            <div class="relative">
-                <img src="${recipie.image}" alt="${
-      recipie.title
-    }" class="w-full h-48 object-cover">
-                <button onclick="toggleFavourite(event)" class="favourite-btn absolute top-3 right-3 bg-white p-2 rounded-full shadow-md ${
-                  isFavourite ? "active" : ""
-                }" data-id="${recipie.id}"><i class="fas fa-heart ${
-      isFavourite ? "text-red-500" : "text-gray-400"
-    }"></i></button>
+    <div class="relative">
+        <img src="${recipie.image}" alt="${recipie.title}">
+        <button onclick="toggleFavourite(event)" class="favourite-btn absolute top-3 right-3 bg-white p-2 rounded-full shadow-md
+                hover:scale-110 transition-transform duration-200  
+                ${isFavourite ? " text-red-600" : "text-gray-400" }" data-id="${
+      recipie.id
+    }">
+            <i class="fas fa-heart ${
+                  isFavourite ? " text-red-5600" : "text-gray-400" }"></i></button>
+    </div>
+    <div class="p-5 flex flex-col">
+        <h3 class="text-xl font-bold text-gray-800 mb-3">${recipie.title}</h3>
+        <div class="mb-4 ">
+            <h4 class="font-medium text-gray-700 mb-2">Ingredients:</h4>
+            <div>
+                ${recipie.usedIngredients
+                .map(
+                (ing) => `
+                <div class="flex justify-between text-sm">
+                    <span class="text-gray-600">${ing.name}</span>
+                    <span class="text-gray-800 font-medium">${ing.amount} ${ing.unit}</span>
+                </div>`
+                )
+                .join("")}
             </div>
-            <div class="p-5">
-                <h3 class="text-xl font-bold text-gray-800 mb-3">${
-                  recipie.title
-                }</h3>
-                <div class="mb-4">
-                    <h4 class="font-medium text-gray-700 mb-2">Ingredients:</h4>
-                    <div class="space-y-1">
-                        ${recipie.usedIngredients
-                          .map(
-                            (ing) => `
-                            <div class="flex justify-between text-sm">
-                                <span class="text-gray-600">${ing.name}</span>
-                                <span class="text-gray-800 font-medium">${ing.amount} ${ing.unit}</span>
-                            </div>
-                        `
-                          )
-                          .join("")}
-                        <div class="flex justify-between items-center">
-                            <button class="view-recipie-btn px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors duration-300 text-sm font-medium"> View Recipe </button>
-                            <span class="text-xs text-gray-500">ID: ${
-                              recipie.id
-                            }</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        </div>
+        <div class="flex justify-between items-center pt-3 border-t border-gray-100">
+            
+                <button
+                    class="view-recipie-btn px-4 py-2 bg-recipe-green text-white rounded-lg hover:bg-green-700 transition-colors duration-300 text-sm font-medium">
+                    View Recipe
+                </button>
+                <button
+                    class="grocery-list-btn px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors duration-300 text-sm font-medium">
+                    Grocery List
+                </button>
+            
+            <span class="text-xs text-gray-500">ID: ${recipie.id}</span>
+        </div>
+    </div>
+    
         `;
     recipieCard.appendChild(recipieCardElement);
   });
@@ -180,8 +185,7 @@ function toggleFavourite(event) {
 // Function for displaying favourite recipies
 function displayFavouriteRecipies() {
   // Getting Id of favourite
-  const fullRecipieData =
-    JSON.parse(localStorage.getItem("favourites")) || [];
+  const fullRecipieData = JSON.parse(localStorage.getItem("favourites")) || [];
   // Create new div for save recipies
   const container = document.createElement("div");
   container.className =
@@ -195,7 +199,7 @@ function displayFavouriteRecipies() {
     return;
   }
   // Fetching data
-   fullRecipieData.forEach((recipieId) => {
+  fullRecipieData.forEach((recipieId) => {
     const encodedIngredients = encodeURIComponent();
     `${baseUrl}?type=public&q=${encodedIngredients}&app_id=${appId}&app_key=${appKey}`;
     // Fetching required data
