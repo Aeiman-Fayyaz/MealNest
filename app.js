@@ -91,7 +91,7 @@ function displayRecipieCard(recipiesToDisplay) {
     const isFavourite = favourites.includes(recipie.id);
 
     const recipieCardElement = document.createElement("div");
-    recipieCardElement.className = `flex flex-col h-full bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300`;
+    recipieCardElement.className = `bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 flex flex-col`;
     recipieCardElement.innerHTML = `
             <div class="relative">
                 <img src="${recipie.image}" alt="${
