@@ -91,7 +91,7 @@ function displayRecipieCard(recipesToDisplay) {
       "bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 flex flex-col";
     recipieCardElement.innerHTML = `
       <div class="relative" >
-        <img src="${recipe.image}" alt="${recipe.title}">
+        <img src="${recipe.image}" alt="${recipe.title}" class = "w-full">
         <button class="favourite-btn absolute top-3 right-3 bg-white p-2 rounded-full shadow-md hover:scale-110 transition-transform duration-200"
           data-id="${recipe.id}">
           <i class="fas fa-heart ${
