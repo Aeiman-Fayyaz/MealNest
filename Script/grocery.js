@@ -55,13 +55,13 @@ document.addEventListener("DOMContentLoaded", () => {
       task.text
     } </span>
             <span class="task-timestamp">${timeAgo(task.timestamp)}</span>
-            <div class="task-buttons">
+            <div class="task-buttons  ">
                 <button class="edit-btn" aria-label="Edit task" ${
                   task.completed ? "disabled" : ""
                 }>
                     <i class="fa-solid fa-file-pen"></i>
                 </button>
-                <button class="accent" aria-label="Delete task">
+                <button class="delete-btn" aria-label="Delete task">
                     <i class="fa-solid fa-trash-can"></i>
                 </button>
             </div>
@@ -101,7 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
       Swal.fire({
         icon: "error",
         title: "Oops...",
-        text: "Please enter a task!",
+        text: "Please enter a grocery items!",
         background: "var(--background-color)",
         color: "var(--text-color)",
       });
@@ -118,8 +118,8 @@ document.addEventListener("DOMContentLoaded", () => {
     taskInput.value = "";
     Swal.fire({
       icon: "success",
-      title: "Task Added!",
-      text: "Your new task has been successfully added.",
+      title: "Grocery Added!",
+      text: "Grocery items has been successfully added.",
       showConfirmButton: false,
       timer: 1500,
       background: "var(--background-color)",
@@ -138,11 +138,10 @@ document.addEventListener("DOMContentLoaded", () => {
       showCancelButton: true,
       confirmButtonColor: "var(--clr-accent)",
       cancelButtonColor: "#d14141",
-      confirmButtonText: "Yes, do it!",
-      background: "var(--color-accent)",
+      confirmButtonText: "Yes, delete it!",
+      background: "var(--primary-color)",
       color: "var(--text-color)",
     });
-
     if (confirmation.isConfirmed) {
       task.completed = !task.completed;
       saveTasks();
@@ -180,7 +179,7 @@ document.addEventListener("DOMContentLoaded", () => {
       renderTasks();
       Swal.fire({
         icon: "success",
-        title: "Task Updated!",
+        title: "Grocery Updated!",
         showConfirmButton: false,
         timer: 1500,
         background: "var(--background-color)",
@@ -193,27 +192,35 @@ document.addEventListener("DOMContentLoaded", () => {
     const taskToDelete = tasks[tasks.length - 1 - index];
     const confirmation = await Swal.fire({
       title: "Are you sure?",
-      text: `You are about to delete the task: "${taskToDelete.text}". This cannot be undone.`,
+      text: `You are about to delete the grocery: "${taskToDelete.text}". This cannot be undone.`,
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#d14141",
-      cancelButtonColor: "var(--color-accent)",
+      cancelButtonColor: "var(--primary-color)",
+      cancelButtonText: "Cancel",
       confirmButtonText: "Yes, delete it!",
       background: "var(--background-color)",
       color: "var(--text-color)",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success",
+        });
+      }
     });
-
     if (confirmation.isConfirmed) {
       tasks.splice(tasks.length - 1 - index, 1);
       saveTasks();
       renderTasks();
       Swal.fire({
         title: "Deleted!",
-        text: "Your task has been deleted.",
+        text: "Your grocery item has been deleted.",
         icon: "success",
         showConfirmButton: false,
         timer: 1500,
-        background: "var(--background-color)",
+        background: "var(--primary-color)",
         color: "var(--text-color)",
       });
     }

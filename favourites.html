@@ -8,13 +8,16 @@
     <!-- Our CSS -->
     <link rel="stylesheet" href="./Stylesheets/style.css">
     <!-- Tailwind CSS -->
-    <link rel="stylesheet" href="./Stylesheets/output.css">
-    <link href="./Stylesheets/tailwind.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
     <!-- Navbar Start -->
-    <nav class="flex flex-wrap items-center justify-between p-3 background-color">
+    <nav class="flex flex-wrap items-center justify-between p-3 background-color sticky top-0 z-20 ">
         <a href="./index.html">
             <h1 class="font-bold lg:text-3xl primary text-2xl">MealNest</h1>
         </a>
@@ -54,7 +57,7 @@
     <!-- Navbar End -->
 
     <!-- Hero Section Start -->
-    <section class="relative  text-white overflow-hidden  ">
+    <section class="relative  text-white overflow-hidden">
         <div class="absolute inset-0 bg-black opacity-50"></div>
         <div class="absolute inset-0 bg-cover bg-center "
             style="background-image: url('./Images/favourite.png'); filter: brightness(0.4);">

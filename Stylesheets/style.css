@@ -1,6 +1,13 @@
 *{
     box-sizing: border-box;
 }
+@font-face {
+    font-family: "FiraSans";
+    src: url(./Font/FiraSans-Regular.ttf);
+}
+body{
+    font-family: 'FiraSans' , 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
 :root{
     --primary-color : #34D399; /* Fresh Green */
     --background-color :  #F3F4F6; /* Light Gray */  

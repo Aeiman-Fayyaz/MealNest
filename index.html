@@ -8,19 +8,20 @@
     <!-- Our CSS -->
     <link rel="stylesheet" href="./Stylesheets/style.css">
     <!-- Tailwind CSS -->
-    <link rel="stylesheet" href="./Stylesheets/output.css">
-    <!-- <link rel="stylesheet" href="./Stylesheets/tailwind.css"> -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"        
         integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="    
             crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Sweetalert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Animation AOS -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
 </head>
 
 <body>
     <!-- Navbar Start -->
-    <nav class="flex flex-wrap items-center justify-between p-3 background-color sticky top-0 z-10">
+    <nav class="flex flex-wrap items-center justify-between p-3 background-color sticky top-0 z-20">
         <a href="./index.html">
             <h1 class="font-bold lg:text-3xl primary text-2xl">MealNest</h1>
         </a>
@@ -109,7 +110,15 @@
 
 
 
-
+    <!-- Script Animation AOS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+        });
+    </script>
     <!-- Our JS -->
     <script src="app.js"></script>
 
