@@ -190,7 +190,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Delete Function
   const deleteTask = async (index) => {
     const taskToDelete = tasks[tasks.length - 1 - index];
-    const confirmation = await Swal.fire({
+    const result = await Swal.fire({
       title: "Are you sure?",
       text: `You are about to delete the grocery: "${taskToDelete.text}". This cannot be undone.`,
       icon: "warning",
@@ -201,20 +201,16 @@ document.addEventListener("DOMContentLoaded", () => {
       confirmButtonText: "Yes, delete it!",
       background: "var(--background-color)",
       color: "var(--text-color)",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire({
-          title: "Deleted!",
-          text: "Your file has been deleted.",
-          icon: "success",
-        });
-      }
     });
-    if (confirmation.isConfirmed) {
+
+    if (result.isConfirmed) {
+      // Delete the task
       tasks.splice(tasks.length - 1 - index, 1);
       saveTasks();
       renderTasks();
-      Swal.fire({
+
+      // Show success message
+      await Swal.fire({
         title: "Deleted!",
         text: "Your grocery item has been deleted.",
         icon: "success",
